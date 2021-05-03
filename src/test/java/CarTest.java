@@ -1,5 +1,4 @@
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -29,7 +28,7 @@ public class CarTest {
             Car car = new Car(carName);
         });
 
-        assertEquals(exception.getMessage(), Message.INVALID_CAR_NAME.getMessage());
+        assertEquals(exception.getMessage(), ErrorMessage.INVALID_CAR_NAME.getMessage());
     }
 
     @DisplayName("자동차 전진 - 성공 테스트")
@@ -52,7 +51,7 @@ public class CarTest {
     void moveCar_failedByUnexpectedParameterTest(int power) {
         Car car = new Car("테스트차량");
         Exception exception = assertThrows(IllegalArgumentException.class, () -> car.move(power));
-        
-        assertEquals(exception.getMessage(), Message.INVALID_MOVE_PARAMETER.getMessage());
+
+        assertEquals(exception.getMessage(), ErrorMessage.INVALID_MOVE_PARAMETER.getMessage());
     }
 }

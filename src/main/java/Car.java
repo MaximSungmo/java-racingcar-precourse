@@ -11,7 +11,7 @@ public class Car {
 
     public void move(int power) {
         if (power < GameRule.MINIMUM_POWER || power > GameRule.MAXIMUM_POWER) {
-            throw new IllegalArgumentException(Message.INVALID_MOVE_PARAMETER.getMessage());
+            throw new IllegalArgumentException(ErrorMessage.INVALID_MOVE_PARAMETER.getMessage());
         }
 
         if (power >= GameRule.MOVE_THRESHOLD) {
@@ -33,7 +33,7 @@ public class Car {
 
     public void setCarName(String carName) {
         if (!validateCarName(carName)) {
-            throw new IllegalArgumentException(Message.INVALID_CAR_NAME.getMessage());
+            throw new IllegalArgumentException(ErrorMessage.INVALID_CAR_NAME.getMessage());
         }
         this.carName = carName;
     }
