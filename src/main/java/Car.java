@@ -32,6 +32,7 @@ public class Car {
     }
 
     public void setCarName(String carName) {
+        carName = carName.trim();
         if (!validateCarName(carName)) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_CAR_NAME.getMessage());
         }
@@ -46,12 +47,11 @@ public class Car {
         return position;
     }
 
-    public String printPosition() {
+    public void printPosition() {
         StringBuilder sb = new StringBuilder();
-        sb.append("-");
         for (int i = 0; i < position; i++) {
             sb.append("-");
         }
-        return String.format("%s : %s", carName, sb.toString());
+        System.out.println(String.format("%s : %s", carName, sb.toString()));
     }
 }
