@@ -6,41 +6,23 @@ public class RacingGameManager {
 
     private int laps = 0;
     private String rawCarNameList;
-    private CarList carList = new CarList();
 
     public void start() {
+        // 경기 등록
         userInit();
-        setRacingCars();
-        repeatLaps();
-        judge();
+        // 선수 입장
+        CarList carList = new CarList(rawCarNameList);
+        // 게임 시작
+        repeatLaps(carList);
+        // 결과 판독
+        Referee referee = new Referee(carList, laps);
+        referee.judge();
+        List<String> winners = referee.getWinners();
+        // 결과 출력
+        String winnerString = StringUtils.join(winners, ",");
+        System.out.println(String.format("%s 가 최종 우승했습니다.", winnerString));
     }
 
-    private void judge() {
-        Set<Integer> positionSet = new HashSet<>();
-        for (Car car : carList.getCarList()) {
-            positionSet.add(car.getPosition());
-        }
-        int maxPosition = Collections.max(positionSet);
-
-        CarList winner = new CarList();
-
-        for (Car car : carList.getCarList()) {
-            if (car.getPosition() == maxPosition) {
-                winner.getCarList().add(car);
-            }
-        }
-        StringBuilder sb = new StringBuilder();
-        for (Car winnerCar : winner.getCarList()) {
-            sb.append(winnerCar.getCarName());
-            sb.append(",");
-        }
-
-        System.out.println(String.format("%s가 최종 우승했습니다.", sb.toString()));
-    }
-
-    private void setRacingCars() {
-        carList.setCarList(rawCarNameList);
-    }
 
     private void userInit() {
         System.out.println(GameMessage.INSERT_CAR_NAME_BY_USER.getMessage());
@@ -57,7 +39,7 @@ public class RacingGameManager {
         }
     }
 
-    private void repeatLaps() {
+    private void repeatLaps(CarList carList) {
         for (int i = 0; i < laps; i++) {
             racing(carList);
             System.out.println("");
